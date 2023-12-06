@@ -26,11 +26,11 @@ import yaml
 
 
 def generate_launch_description():
-    param_config = os.path.join(
-        get_package_share_directory('depthimage_to_laserscan'), 'cfg', 'param.yaml')
 
+    param_config = os.path.join('/data', 'params', 'nav2_params.yaml')
     with open(param_config, 'r') as f:
-        params = yaml.safe_load(f)['depthimage_to_laserscan']['ros__parameters']
+        params = yaml.safe_load(f)["dw2_camera"]["ros__parameters"]
+
 
     container = ComposableNodeContainer(
         name='depthimage_to_laserscan_container',
@@ -42,7 +42,10 @@ def generate_launch_description():
                 package='depthimage_to_laserscan',
                 plugin='depthimage_to_laserscan::DepthImageToLaserScanROS',
                 name='depthimage_to_laserscan',
+                remappings=[('depth', '/camera/depth/image_rect_raw'),
+                        ('depth_camera_info', '/camera/depth/camera_info')],
                 parameters=[params]),
+                
         ],
         output='both',
     )
