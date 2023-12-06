@@ -29,7 +29,7 @@ def generate_launch_description():
 
     param_config = os.path.join('/data', 'params', 'nav2_params.yaml')
     with open(param_config, 'r') as f:
-        params = yaml.safe_load(f)["dw2_camera"]["ros__parameters"]
+        params = yaml.safe_load(f)["depthimage_to_laserscan"]["ros__parameters"]
 
 
     container = ComposableNodeContainer(
